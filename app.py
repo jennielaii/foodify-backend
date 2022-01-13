@@ -28,7 +28,7 @@ def create_user():
   hashed_pw = bcrypt.generate_password_hash(request.json["password"]).decode('utf-8')
   try:
     user = models.User(
-      frist=request.json["frist"],
+      first=request.json["first"],
       last=request.json["last"],
       email=request.json["email"],
       # password=request.json["password"]
@@ -68,7 +68,7 @@ def verify_user():
   # print(request.headers)
   decrypted_id = jwt.decode(request.headers['Authorization'], os.environ.get("JWT_SECRET"), algorithms=["HS256"])["user_id"]
   # user = models.User.query.filter_by(id=request.headers["Authorization"]).first() #How to look user up? We can't do it by request.json in python
-  user = models.User.query.filter_by(id= decrypted_id['id']).first()
+  user = models.User.query.filter_by(id= decrypted_id).first()
   # if not user: 
   #   return {
   #     "message": "user not found"
